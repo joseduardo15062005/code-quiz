@@ -8,7 +8,7 @@ header{
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
-    margin: 10px 20px;
+    margin: 10px 20px 60px 20px;
 }
 
 #question, #welcome{
@@ -62,5 +62,10 @@ p {
      Tahoma,
      sans-serif;
      border-radius: 5px;
+}
+
+.display-none{
+    display: none !important;
+
 }
 
