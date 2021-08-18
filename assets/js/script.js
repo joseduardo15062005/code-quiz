@@ -14,7 +14,7 @@ const questions = [
   },
   {
     title: "Question #2 ?",
-    options: ["string", "int", "alert", "number"],
+    options: ["JS", "HTML", "CSS", "OTHER"],
     correctOption: "JS",
   },
   {
@@ -32,10 +32,23 @@ const questions = [
 function startQuiz() {
   sectionWelcome.classList.add("display-none");
   sectionQuestion.classList.remove("display-none");
-  //TODO: Show First Question
-  const question = questions[0];
-  questionTitle.textContent = question.title;
+  //Show First Question
+  showQuestion(questions[0]);
+}
+
+function checkAnswer(event) {
+  console.log(event.target.outerText);
+  //TODO: if the answer is correct  Show the next question
+  showQuestion(questions[1]);
+}
+
+function showQuestion(question) {
+  //TODO:Remove child ul
+  questionOptions.innerHTML = "";
+
   let n = 1;
+  questionTitle.textContent = question.title;
+
   for (var option of question.options) {
     const liOption = document.createElement("li");
     liOption.addEventListener("click", checkAnswer);
@@ -43,10 +56,6 @@ function startQuiz() {
     questionOptions.appendChild(liOption);
     n++;
   }
-}
-
-function checkAnswer(event) {
-  console.log(event.target.outerText);
 }
 
 startQuizButton.addEventListener("click", startQuiz);
