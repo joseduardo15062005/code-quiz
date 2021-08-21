@@ -5,9 +5,11 @@ const sectionQuestion = document.getElementById("question");
 const questionTitle = document.getElementById("questionTitle");
 const questionOptions = document.getElementById("questionOptions");
 const startQuizButton = document.getElementById("startQuiz");
+let timeLeft = 20;
+timer.textContent = timeLeft;
 
-//TODO: Create a timer Count down
-function initializeTimer(timeLeft) {
+//Create a timer Count down
+function initializeTimer() {
   var timeInterval = setInterval(function () {
     if (timeLeft > 0) {
       timeLeft--;
@@ -19,10 +21,11 @@ function initializeTimer(timeLeft) {
   }, 1000);
 }
 
+//Start the quiz showing the first question
 function startQuiz() {
+  initializeTimer();
   sectionWelcome.classList.add("display-none");
   sectionQuestion.classList.remove("display-none");
-  initializeTimer(20);
 
   //Show First Question
   showQuestion(questions[0]);
