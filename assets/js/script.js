@@ -5,20 +5,20 @@ const sectionQuestion = document.getElementById("question");
 const questionTitle = document.getElementById("questionTitle");
 const questionOptions = document.getElementById("questionOptions");
 const startQuizButton = document.getElementById("startQuiz");
-let timeLeft = 5;
+const questionAnswerText = document.getElementById("questionAnswerText");
+let timeLeft = 100;
+let questionNumber = 0;
 
 //Create a timer Count down
-function initializeTimer() {
-  var timeInterval = setInterval(function () {
-    timer.textContent = timeLeft;
-    if (timeLeft > 0) {
-      timeLeft--;
-    }
-    if (timeLeft === 0) {
-      clearInterval(timerCountdown);
-    }
-  }, 1000);
-}
+var initializeTimer = setInterval(function () {
+  timer.textContent = timeLeft;
+  if (timeLeft > 0) {
+    timeLeft--;
+  }
+  if (timeLeft === 0) {
+    clearInterval(initializeTimer);
+  }
+}, 1000);
 
 //Start the quiz showing the first question
 function startQuiz() {
@@ -26,30 +26,56 @@ function startQuiz() {
   sectionWelcome.classList.add("display-none");
   sectionQuestion.classList.remove("display-none");
 
-  //Show First Question
-  showQuestion(questions[0]);
+  //Show Question
+  showQuestion();
+}
+function showQuestion() {
+  //Validate if the questionNumber is the Last Question
+  if (questionNumber >= questions.length) {
+    //TODO: Show the Section add Initials ang save  high Scores
+    clearInterval(initializeTimer);
+    const highScore = timer.textContent;
+    console.log(highScore);
+  } else {
+    question = questions[questionNumber];
+    //Remove child from  ul or content
+    questionOptions.innerHTML = "";
+
+    let n = 1;
+    questionTitle.textContent = question.title;
+    //Iterate for each options of the question and create the option.
+    for (var option of question.options) {
+      const liOption = document.createElement("li");
+      liOption.textContent = `${n}. ${option}`;
+      liOption.setAttribute("data-id", question.id);
+      liOption.setAttribute("data-option", option);
+      questionOptions.appendChild(liOption);
+      n++;
+    }
+  }
 }
 
-function checkAnswer(event) {
-  console.log(event.target.outerText);
-  //TODO: if the answer is correct  Show the next question
-  showQuestion(questions[1]);
-}
-
-function showQuestion(question) {
-  //TODO:Remove child ul
-  questionOptions.innerHTML = "";
-
-  let n = 1;
-  questionTitle.textContent = question.title;
-
-  for (var option of question.options) {
-    const liOption = document.createElement("li");
-    liOption.addEventListener("click", checkAnswer);
-    liOption.textContent = `${n}. ${option}`;
-    questionOptions.appendChild(liOption);
-    n++;
+function validateQuestion(questionId, answer) {
+  //Get Question from the Array
+  question = questions.find((q) => q.id === questionId);
+  if (question) {
+    if (question.answer == answer) {
+      return "Correct";
+    }
+    //Wrong Answer  Subtracted 5s from the timer
+    timeLeft -= 10;
+    return "Wrong";
   }
 }
 
 startQuizButton.addEventListener("click", startQuiz);
+
+sectionQuestion.addEventListener("click", function (event) {
+  const questionId = Number(event.target.getAttribute("data-id"));
+  const answer = event.target.getAttribute("data-option");
+  //Validate Question is Wrong or Correct
+  questionAnswerText.textContent = validateQuestion(questionId, answer);
+  //Show Next Question
+  questionNumber++;
+  showQuestion();
+});
