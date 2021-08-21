@@ -8,21 +8,22 @@ const startQuizButton = document.getElementById("startQuiz");
 const questionAnswerText = document.getElementById("questionAnswerText");
 let timeLeft = 100;
 let questionNumber = 0;
+let intervalId = 0;
 
 //Create a timer Count down
-var initializeTimer = setInterval(function () {
+function countdown() {
   timer.textContent = timeLeft;
   if (timeLeft > 0) {
     timeLeft--;
   }
   if (timeLeft === 0) {
-    clearInterval(initializeTimer);
+    clearInterval(intervalId);
   }
-}, 1000);
+}
 
 //Start the quiz showing the first question
 function startQuiz() {
-  initializeTimer();
+  intervalId = setInterval(countdown, 1000);
   sectionWelcome.classList.add("display-none");
   sectionQuestion.classList.remove("display-none");
 
@@ -33,7 +34,7 @@ function showQuestion() {
   //Validate if the questionNumber is the Last Question
   if (questionNumber >= questions.length) {
     //TODO: Show the Section add Initials ang save  high Scores
-    clearInterval(initializeTimer);
+    clearInterval(intervalId);
     const highScore = timer.textContent;
     console.log(highScore);
   } else {
