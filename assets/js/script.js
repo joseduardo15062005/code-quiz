@@ -7,7 +7,7 @@ const questionOptions = document.getElementById("questionOptions");
 const startQuizButton = document.getElementById("startQuiz");
 
 //TODO: Create a timer Count down
-function InitializeTimer(timeLeft) {
+function initializeTimer(timeLeft) {
   var timeInterval = setInterval(function () {
     if (timeLeft > 0) {
       timeLeft--;
@@ -22,7 +22,7 @@ function InitializeTimer(timeLeft) {
 function startQuiz() {
   sectionWelcome.classList.add("display-none");
   sectionQuestion.classList.remove("display-none");
-  InitializeTimer(20);
+  initializeTimer(20);
 
   //Show First Question
   showQuestion(questions[0]);
