@@ -6,9 +6,24 @@ const questionTitle = document.getElementById("questionTitle");
 const questionOptions = document.getElementById("questionOptions");
 const startQuizButton = document.getElementById("startQuiz");
 
+//TODO: Create a timer Count down
+function InitializeTimer(timeLeft) {
+  var timeInterval = setInterval(function () {
+    if (timeLeft > 0) {
+      timeLeft--;
+    }
+    if (timeLeft === 0) {
+      clearInterval(timerCountdown);
+    }
+    timer.textContent = timeLeft;
+  }, 1000);
+}
+
 function startQuiz() {
   sectionWelcome.classList.add("display-none");
   sectionQuestion.classList.remove("display-none");
+  InitializeTimer(20);
+
   //Show First Question
   showQuestion(questions[0]);
 }
