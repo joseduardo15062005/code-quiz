@@ -5,19 +5,18 @@ const sectionQuestion = document.getElementById("question");
 const questionTitle = document.getElementById("questionTitle");
 const questionOptions = document.getElementById("questionOptions");
 const startQuizButton = document.getElementById("startQuiz");
-let timeLeft = 20;
-timer.textContent = timeLeft;
+let timeLeft = 5;
 
 //Create a timer Count down
 function initializeTimer() {
   var timeInterval = setInterval(function () {
+    timer.textContent = timeLeft;
     if (timeLeft > 0) {
       timeLeft--;
     }
     if (timeLeft === 0) {
       clearInterval(timerCountdown);
     }
-    timer.textContent = timeLeft;
   }, 1000);
 }
 
