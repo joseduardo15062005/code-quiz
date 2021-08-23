@@ -1,8 +1,9 @@
 const timer = document.getElementById("timer");
-const sectionWelcome = document.getElementById("welcome");
 
+const sectionWelcome = document.getElementById("welcome");
 const sectionQuestion = document.getElementById("question");
 const sectionRegisterScore = document.getElementById("registerScore");
+
 const questionTitle = document.getElementById("questionTitle");
 const questionOptions = document.getElementById("questionOptions");
 const startQuizButton = document.getElementById("startQuiz");
@@ -10,6 +11,7 @@ const questionAnswerText = document.getElementById("questionAnswerText");
 const finalScoreEl = document.getElementById("finalScore");
 const btnSaveScore = document.getElementById("btnSaveScore");
 const initialsEl = document.getElementById("initials");
+
 let timeLeft = 100;
 let questionNumber = 0;
 let intervalId = 0;
@@ -82,9 +84,7 @@ function endQuiz() {
   sectionQuestion.classList.add("display-none");
 }
 
-startQuizButton.addEventListener("click", startQuiz);
-
-btnSaveScore.addEventListener("click", function saveScore(event) {
+function saveScore(event) {
   event.preventDefault();
   const initials = initialsEl.value.toUpperCase();
 
@@ -104,9 +104,9 @@ btnSaveScore.addEventListener("click", function saveScore(event) {
   } else {
     //TODO:if localStorage have element , validate number of items
   }
-});
+}
 
-sectionQuestion.addEventListener("click", function (event) {
+function questionClickHandler(event) {
   const questionId = Number(event.target.getAttribute("data-id"));
   const answer = event.target.getAttribute("data-option");
   //Validate Question is Wrong or Correct
@@ -114,4 +114,10 @@ sectionQuestion.addEventListener("click", function (event) {
   //Show Next Question
   questionNumber++;
   showQuestion();
-});
+}
+
+startQuizButton.addEventListener("click", startQuiz);
+
+btnSaveScore.addEventListener("click", saveScore);
+
+sectionQuestion.addEventListener("click", questionClickHandler);
