@@ -1,38 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/css/style.css"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
     <title>Code Quiz</title>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <p>View High Scores</p>
-        <p>Time: <span id="timer">0</span></p>
+      <p>View High Scores</p>
+      <p>Time: <span id="timer">0</span></p>
     </header>
     <section id="welcome">
-        <h1>Coding Quiz Challenge</h1>
-        <p>Try to answer the following code-related questions within the time limit.</p>
-        <p>Keep in mind that incorrect answer will penalize your score/time by ten seconds</p>
-        <button type="button" id="startQuiz" class="btn">Start Quiz</button>
-
-
+      <h1>Coding Quiz Challenge</h1>
+      <p>
+        Try to answer the following code-related questions within the time
+        limit.
+      </p>
+      <p>
+        Keep in mind that incorrect answer will penalize your score/time by ten
+        seconds
+      </p>
+      <button type="button" id="startQuiz" class="btn">Start Quiz</button>
     </section>
     <section id="question" class="display-none">
-        <div>
+      <div>
         <h1 id="questionTitle"></h1>
-        <ul id="questionOptions">
-        </ul>
-        </div>
-        <div id="questionAnswer">
-            <span id="questionAnswerText"></span>
-        </div>
+        <ul id="questionOptions"></ul>
+      </div>
+      <div id="questionAnswer">
+        <span id="questionAnswerText"></span>
+      </div>
+    </section>
+    <section id="registerScore" class="display-none">
+      <form>
+        <h2>All done!</h2>
+        <p>Your final score is: <span id="finalScore"></span></p>
+        <label>Initials: </label>
+        <input type="text" id="initials" maxlength="4" />
+        <button type="submit" class="btn" id="btnSaveScore">Save Score</button>
+      </div>
     </section>
 
     <script src="./assets/js/questions.js"></script>
     <script src="./assets/js/script.js"></script>
-    
-</body>
+  </body>
 </html>

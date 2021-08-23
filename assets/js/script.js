@@ -2,13 +2,18 @@ const timer = document.getElementById("timer");
 const sectionWelcome = document.getElementById("welcome");
 
 const sectionQuestion = document.getElementById("question");
+const sectionRegisterScore = document.getElementById("registerScore");
 const questionTitle = document.getElementById("questionTitle");
 const questionOptions = document.getElementById("questionOptions");
 const startQuizButton = document.getElementById("startQuiz");
 const questionAnswerText = document.getElementById("questionAnswerText");
+const finalScoreEl = document.getElementById("finalScore");
+const btnSaveScore = document.getElementById("btnSaveScore");
+const initialsEl = document.getElementById("initials");
 let timeLeft = 100;
 let questionNumber = 0;
 let intervalId = 0;
+let score = 0;
 
 //Create a timer Count down
 function countdown() {
@@ -33,10 +38,8 @@ function startQuiz() {
 function showQuestion() {
   //Validate if the questionNumber is the Last Question
   if (questionNumber >= questions.length) {
-    //TODO: Show the Section add Initials ang save  high Scores
-    clearInterval(intervalId);
-    const highScore = timer.textContent;
-    console.log(highScore);
+    //Show the Section add Initials ang save  high Scores
+    endQuiz();
   } else {
     question = questions[questionNumber];
     //Remove child from  ul or content
@@ -69,7 +72,39 @@ function validateQuestion(questionId, answer) {
   }
 }
 
+function endQuiz() {
+  //Stop timer and asign value to High Score variable
+  clearInterval(intervalId);
+  score = timer.textContent;
+  finalScoreEl.textContent = score;
+  //hide section question and show section register-score
+  sectionRegisterScore.classList.remove("display-none");
+  sectionQuestion.classList.add("display-none");
+}
+
 startQuizButton.addEventListener("click", startQuiz);
+
+btnSaveScore.addEventListener("click", function saveScore(event) {
+  event.preventDefault();
+  const initials = initialsEl.value.toUpperCase();
+
+  const scoreStorage = {
+    initials,
+    score,
+  };
+  console.log(scoreStorage);
+
+  //get actual score from the locaStorage.
+  let highScores = localStorage.getItem("highScores");
+  //validate if is null- if null add the high Score to the localStorage
+  if (!highScores) {
+    highScores = [];
+    highScores.push(scoreStorage);
+    localStorage.setItem("highScores", JSON.stringify(highScores));
+  } else {
+    //TODO:if localStorage have element , validate number of items
+  }
+});
 
 sectionQuestion.addEventListener("click", function (event) {
   const questionId = Number(event.target.getAttribute("data-id"));
