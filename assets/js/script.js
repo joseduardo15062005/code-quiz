@@ -92,50 +92,54 @@ function saveScore(event) {
     initials,
     score,
   };
-  console.log(scoreStorage);
 
-  //get actual score from the locaStorage.
-  let highScores = localStorage.getItem("highScores");
-  highScores = JSON.parse(highScores);
+  let highScores = getLocalStorage();
   //validate if is null- if null add the high Score to the localStorage
   if (!highScores) {
     highScores = [];
     highScores.push(scoreStorage);
-    localStorage.setItem("highScores", JSON.stringify(highScores));
+    setLocalStorage();
   } else {
     //if localStorage have element , validate number of items
     if (highScores.length <= 4) {
       //Add Score to the array
       highScores.push(scoreStorage);
-      //organize elements by score.
-      highScores = _.sortBy(highScores, [
-        function (o) {
-          return o.score;
-        },
-      ]);
-      //Storage highScores in localStorage
-      localStorage.setItem("highScores", JSON.stringify(highScores));
+      setLocalStorage();
     } else {
       //Replace the lower score from the high scores.
       if (highScores[0].score < scoreStorage.score) {
         //Replace the value of the lower score
         highScores[0] = scoreStorage;
-        //Organize the Array
-        highScores = _.sortBy(highScores, [
-          function (o) {
-            return o.score;
-          },
-        ]);
-        //Storage highScores in localStorage
-        localStorage.setItem("highScores", JSON.stringify(highScores));
+        setLocalStorage();
       }
     }
   }
 }
 
+function setLocalStorage() {
+  //organize elements by score.
+  highScores = _.sortBy(highScores, [
+    function (o) {
+      return o.score;
+    },
+  ]);
+  //Storage highScores in localStorage
+  localStorage.setItem("highScores", JSON.stringify(highScores));
+}
+
+function getLocalStorage() {
+  //get actual score from the locaStorage.
+  let highScores = localStorage.getItem("highScores");
+  return JSON.parse(highScores);
+}
+
 function questionClickHandler(event) {
   const questionId = Number(event.target.getAttribute("data-id"));
   const answer = event.target.getAttribute("data-option");
+
+  if (question === 0 || answer === null) {
+    return;
+  }
   //Validate Question is Wrong or Correct
   questionAnswerText.textContent = validateQuestion(questionId, answer);
   //Show Next Question
