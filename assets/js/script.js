@@ -77,7 +77,7 @@ function validateQuestion(questionId, answer) {
 function endQuiz() {
   //Stop timer and asign value to High Score variable
   clearInterval(intervalId);
-  score = timer.textContent;
+  score = Number(timer.textContent);
   finalScoreEl.textContent = score;
   //hide section question and show section register-score
   sectionRegisterScore.classList.remove("display-none");
@@ -96,13 +96,26 @@ function saveScore(event) {
 
   //get actual score from the locaStorage.
   let highScores = localStorage.getItem("highScores");
+  highScores = JSON.parse(highScores);
   //validate if is null- if null add the high Score to the localStorage
   if (!highScores) {
     highScores = [];
     highScores.push(scoreStorage);
     localStorage.setItem("highScores", JSON.stringify(highScores));
   } else {
-    //TODO:if localStorage have element , validate number of items
+    //if localStorage have element , validate number of items
+    if (highScores.length <= 3) {
+      //Add Score to the array
+      highScores.push(scoreStorage);
+      //organize elements by score.
+      highScores = _.sortBy(highScores, [
+        function (o) {
+          return o.score;
+        },
+      ]);
+      //Storage highScores in localStorage
+      localStorage.setItem("highScores", JSON.stringify(highScores));
+    }
   }
 }
 
