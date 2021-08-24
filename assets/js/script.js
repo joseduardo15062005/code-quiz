@@ -104,7 +104,7 @@ function saveScore(event) {
     localStorage.setItem("highScores", JSON.stringify(highScores));
   } else {
     //if localStorage have element , validate number of items
-    if (highScores.length <= 3) {
+    if (highScores.length <= 4) {
       //Add Score to the array
       highScores.push(scoreStorage);
       //organize elements by score.
@@ -115,6 +115,20 @@ function saveScore(event) {
       ]);
       //Storage highScores in localStorage
       localStorage.setItem("highScores", JSON.stringify(highScores));
+    } else {
+      //Replace the lower score from the high scores.
+      if (highScores[0].score < scoreStorage.score) {
+        //Replace the value of the lower score
+        highScores[0] = scoreStorage;
+        //Organize the Array
+        highScores = _.sortBy(highScores, [
+          function (o) {
+            return o.score;
+          },
+        ]);
+        //Storage highScores in localStorage
+        localStorage.setItem("highScores", JSON.stringify(highScores));
+      }
     }
   }
 }
