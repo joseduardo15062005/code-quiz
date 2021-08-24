@@ -48,7 +48,7 @@ function showQuestion() {
     questionOptions.innerHTML = "";
 
     let n = 1;
-    questionTitle.textContent = question.title;
+    questionTitle.innerHTML = question.title;
     //Iterate for each options of the question and create the option.
     for (var option of question.options) {
       const liOption = document.createElement("li");
@@ -65,11 +65,11 @@ function validateQuestion(questionId, answer) {
   //Get Question from the Array
   question = questions.find((q) => q.id === questionId);
   if (question) {
-    if (question.answer == answer) {
+    if (question.answer === answer) {
       return "Correct";
     }
     //Wrong Answer  Subtracted 5s from the timer
-    timeLeft -= 10;
+    timeLeft -= 20;
     return "Wrong";
   }
 }
@@ -98,25 +98,25 @@ function saveScore(event) {
   if (!highScores) {
     highScores = [];
     highScores.push(scoreStorage);
-    setLocalStorage();
+    setLocalStorage(highScores);
   } else {
     //if localStorage have element , validate number of items
     if (highScores.length <= 4) {
       //Add Score to the array
       highScores.push(scoreStorage);
-      setLocalStorage();
+      setLocalStorage(highScores);
     } else {
       //Replace the lower score from the high scores.
       if (highScores[0].score < scoreStorage.score) {
         //Replace the value of the lower score
         highScores[0] = scoreStorage;
-        setLocalStorage();
+        setLocalStorage(highScores);
       }
     }
   }
 }
 
-function setLocalStorage() {
+function setLocalStorage(highScores) {
   //organize elements by score.
   highScores = _.sortBy(highScores, [
     function (o) {
