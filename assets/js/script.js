@@ -61,27 +61,14 @@ function showQuestion() {
   }
 }
 
-function validateQuestion(questionId, answer) {
-  //Get Question from the Array
-  question = questions.find((q) => q.id === questionId);
-  if (question) {
-    if (question.answer === answer) {
-      return "Correct";
-    }
-    //Wrong Answer  Subtracted 5s from the timer
-    timeLeft -= 20;
-    return "Wrong";
-  }
-}
-
 function endQuiz() {
-  //Stop timer and asign value to High Score variable
-  clearInterval(intervalId);
   score = Number(timer.textContent);
   finalScoreEl.textContent = score;
   //hide section question and show section register-score
   sectionRegisterScore.classList.remove("display-none");
   sectionQuestion.classList.add("display-none");
+  //Stop timer and asign value to High Score variable
+  clearInterval(intervalId);
 }
 
 function saveScore(event) {
@@ -131,6 +118,20 @@ function getLocalStorage() {
   //get actual score from the locaStorage.
   let highScores = localStorage.getItem("highScores");
   return JSON.parse(highScores);
+}
+
+function validateQuestion(questionId, answer) {
+  //Get Question from the Array
+  question = questions.find((q) => q.id === questionId);
+  if (question) {
+    if (question.answer === answer) {
+      return "Correct";
+    }
+    //Wrong Answer  Subtracted 5s from the timer
+    timeLeft -= 20;
+    timer.textContent = timeLeft;
+    return "Wrong";
+  }
 }
 
 function questionClickHandler(event) {

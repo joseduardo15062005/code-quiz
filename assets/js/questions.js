@@ -20,8 +20,8 @@ const questions = [
   },
   {
     id: 4,
-    title: "In javascript the condition if(1=='1') is ?",
-    options: ["True", "False"],
-    answer: "True",
+    title: "Inside which HTML element do we put the JavaScript?",
+    options: ["<scriping>", "<code>", "<js>", "<script>"],
+    answer: "<script>",
   },
 ];
