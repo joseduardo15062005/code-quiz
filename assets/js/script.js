@@ -11,6 +11,8 @@ const questionAnswerText = document.getElementById("questionAnswerText");
 const finalScoreEl = document.getElementById("finalScore");
 const btnSaveScore = document.getElementById("btnSaveScore");
 const initialsEl = document.getElementById("initials");
+const highScoresList = document.getElementById("highScoresList");
+const myModal = document.getElementById("highScoresModal");
 
 let timeLeft = 100;
 let questionNumber = 0;
@@ -150,6 +152,19 @@ function questionClickHandler(event) {
   questionNumber++;
   showQuestion();
 }
+
+myModal.addEventListener("shown.bs.modal", function () {
+  console.dir(highScoresList);
+  highScoresList.innerHTML = "";
+  const highScores = getLocalStorage();
+
+  for (let i = highScores.length - 1; i >= 0; i--) {
+    const liEl = document.createElement("li");
+    liEl.textContent =
+      highScores[i].initials + " Score: " + highScores[i].score;
+    highScoresList.appendChild(liEl);
+  }
+});
 
 startQuizButton.addEventListener("click", startQuiz);
 
