@@ -116,7 +116,6 @@ function setLocalStorage(highScores) {
   localStorage.setItem("highScores", JSON.stringify(highScores));
   //sDisable the Save Score Button.
   btnSaveScore.disabled = true;
-  s;
 }
 
 function getLocalStorage() {
