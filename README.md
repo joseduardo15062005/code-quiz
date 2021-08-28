@@ -1,4 +1,4 @@
-# Code Quez
+# Code Quiz
 
 ![Mockup Screenshot](assets/images/ScreenShot.png)
 
