@@ -13,8 +13,8 @@ Create acode quiz in Javascript using localStorage API to storage 5 high scores 
 
 ## Third Party API
 
--Bootstrap 5.0
--lodash 4.17
+- Bootstrap 5.0: Layout and Modal Component
+- lodash 4.17: Sort Object for high Scores
 
 ## Website
 
