@@ -4,7 +4,7 @@
 
 ## Purpose
 
-Create acode quiz in Javascript using localStorage API.
+Create acode quiz in Javascript using localStorage API to storage 5 high scores in the browser.
 
 ## Built With
 
